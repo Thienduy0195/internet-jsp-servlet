@@ -19,18 +19,18 @@
 		<div class="login-form">
 			<h3 class="text-center text-white">UPDATE CUSTOMER</h3>
 			<form
-				action="${pageContext.request.contextPath}/customer/${customer.customerId}"
-				method="post" modelAttribute="customer">
+				action="${pageContext.request.contextPath}/customer?action=edit&customerId=${customer.customerId}"
+				method="post">
 				<div class="row my-4">
 					<div class="hidden">
-						<input path="customerId" type="text"
+						<input name="customerId" type="text"
 							class="form-control input" id="full-name" placeholder="Họ và tên"
 							autocomplete="off" value="${customer.customerId}" />
 					</div>
 					<div class="col-md-6" style="padding-right: 15px">
 						<div class="form-floating textbox mb-4">
 
-							<input path="name" type="text" class="form-control input"
+							<input name="name" type="text" class="form-control input"
 								id="full-name" placeholder="Họ và tên" autocomplete="off"
 								value="${customer.name}" />
 							<label for="full-name" style="color: white"> Full name <span
@@ -41,7 +41,7 @@
 
 					<div class="col-md-6" style="padding-right: 15px">
 						<div class="form-floating textbox mb-4">
-							<input path="address" type="text" class="form-control input"
+							<input name="address" type="text" class="form-control input"
 								id="address" placeholder="Họ và tên" autocomplete="off"
 								value="${customer.address }" />
 							<label for="address" style="color: white"> Address <span
@@ -54,7 +54,7 @@
 
 					<div class="col-md-6" style="padding-right: 15px">
 						<div class="form-floating textbox mb-4">
-							<input path="email" type="email" class="form-control input"
+							<input name="email" type="email" class="form-control input"
 								id="email" placeholder="example@gmail.com" autocomplete="off"
 								value="${customer.email }" />
 							<label for="email" style="color: white"> Email <span
@@ -64,7 +64,7 @@
 					</div>
 					<div class="col-md-6 " style="padding-right: 15px">
 						<div class="form-floating textbox mb-4">
-							<input path="phoneNumber" type="text"
+							<input name="phoneNumber" type="text"
 								class="form-control input" id="phone-number"
 								placeholder="Họ và tên" autocomplete="off"
 								value="${customer.phoneNumber}" />

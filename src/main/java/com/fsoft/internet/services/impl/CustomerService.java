@@ -12,7 +12,7 @@ import com.fsoft.internet.services.ICustomerService;
 
 public class CustomerService implements ICustomerService {
 
-    public static final String REGEX_CUSTOMER_ID ="^KH(\\-)[0-9]{4}$";
+    public static final String REGEX_CUSTOMER_ID ="^CUS[0-9]{5}$";
     public static final String REGEX_NAME = "^[\\p{Lu}\\p{Ll}\\s]+$";
     public static final String REGEX_NUMBER = "^[0-9]+$";
     public static final String REGEX_ID_CARD = "^[0-9]{9}$";

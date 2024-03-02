@@ -21,14 +21,19 @@
 			<h3 class="text-center text-white">ADD NEW CUSTOMER</h3>
 			<form
 				action="${pageContext.request.contextPath}/customer?action=create"
-				method="post" modelAttribute="customer">
+				method="post">
+				        <p>
+                <c:if test='${requestScope["message"] != null}'>
+                    <span style="color: red" class="message">${requestScope["message"]}</span>
+                </c:if>
+            </p>
 				<div class="row my-4">
 					<div class="col-md-3" style="padding-right: 15px">
 						<div class="form-floating textbox mb-4">
 
 							<input name="customerId" type="text"
 								class="form-control input" id="full-name"
-								placeholder="Họ và tên" autocomplete="off" />
+								placeholder="Họ và tên" autocomplete="off" value="${customer.customerId}"/>
 							<label for="full-name" style="color: white"> Code
 								(CUSxxxxx) <span class="text-danger">*</span>
 							</label>
@@ -38,7 +43,7 @@
 					<div class="col-md-6" style="padding-right: 15px">
 						<div class="form-floating textbox mb-4">
 							<input name="name" type="text" class="form-control input"
-								id="full-name" placeholder="Họ và tên" autocomplete="off" />
+								id="full-name" placeholder="Họ và tên" autocomplete="off" value="${customer.name}"/>
 								
 							<label for="full-name" style="color: white"> Full name <span
 								class="text-danger">*</span>
@@ -52,7 +57,7 @@
 						<div class="form-floating textbox mb-4">
 							<input name="phoneNumber" type="text"
 								class="form-control input" id="phone-number"
-								placeholder="Họ và tên" autocomplete="off" />
+								placeholder="Họ và tên" autocomplete="off" value="${customer.phoneNumber}"/>
 							<label for="phone-number" style="color: white"> Phone <span
 								class="text-danger">*</span>
 							</label>
@@ -66,7 +71,7 @@
 					<div class="col-md-6" style="padding-right: 15px">
 						<div class="form-floating textbox mb-4">
 							<input name="email" type="email" class="form-control input"
-								id="email" placeholder="example@gmail.com" autocomplete="off" />
+								id="email" placeholder="example@gmail.com" autocomplete="off" value="${customer.email}"/>
 							<label for="email" style="color: white"> Email <span
 								class="text-danger">*</span>
 							</label>
@@ -77,7 +82,7 @@
 					<div class="col-md-6" style="padding-right: 15px">
 						<div class="form-floating textbox mb-4">
 							<input name="address" type="text" class="form-control input"
-								id="address" placeholder="Họ và tên" autocomplete="off" />
+								id="address" placeholder="Họ và tên" autocomplete="off" value="${customer.address}"/>
 							<label for="address" style="color: white"> Address <span
 								class="text-danger">*</span>
 							</label>

@@ -111,7 +111,7 @@ a {
 								<td>${item.phoneNumber}</td>
 								<td>${item.email}</td>
 								<td><a
-									href="${pageContext.request.contextPath}/customer/${item.customerId}">
+									href="${pageContext.request.contextPath}/customer?action=edit&customerId=${item.customerId}">
 										<button class="btn btn-outline-secondary color-icon">
 											<i class="fa-solid fa-pen-to-square"></i>
 										</button>
@@ -196,7 +196,7 @@ a {
 	<div class="modal fade" id="exampleModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
-			<form action="${pageContext.request.contextPath}/customer/delete"
+			<form action="${pageContext.request.contextPath}/customer?action=delete"
 				method="post">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -262,8 +262,8 @@ a {
 
 	<script>
 		function showModalDelete(a, b) {
-			document.getElementById("delete_modal").innerText = b;
 			document.getElementById("sendId").value = a;
+			document.getElementById("delete_modal").innerText = b;
 		}
 	</script>
 

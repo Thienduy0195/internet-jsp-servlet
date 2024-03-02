@@ -48,8 +48,13 @@ public class CustomerServlet extends HttpServlet {
 
 	private void createCustomer(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, String> errorsMap = new HashMap<>();
-		String customerID = request.getParameter("customerId");
-		Customer customer = customerService.selectCustomer(customerID);
+		String customerId = request.getParameter("customerId");
+		String name = request.getParameter("name");
+		String address = request.getParameter("address");
+		String phoneNumber = request.getParameter("phoneNumber");
+		String email = request.getParameter("email");
+
+		Customer customer = customerService.selectCustomer(customerId);
 		if (customer != null) {
 			String message = "Customer id is exist!!";
 			request.setAttribute("message", message);
@@ -62,20 +67,8 @@ public class CustomerServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
-			customer = new Customer("String", "String", "String",
-				      "022219102929", "String", 0);
-//			Integer customerType = Integer.parseInt(request.getParameter("customerType"));
-//			String customerName = request.getParameter("customerName");
-//			String customerBirthday = request.getParameter("customerBirthday");
-//			Integer customerGender = Integer.parseInt(request.getParameter("customerGender"));
-//			String customerIdCard = request.getParameter("customerIdCard");
-//			String customerPhone = request.getParameter("customerPhone");
-//			String customerEmail = request.getParameter("customerEmail");
-//			String customerAddress = request.getParameter("customerAddress");
-//            customer = new Customer(customerID, customerType, customerName,
-//                    customerBirthday, customerGender, customerIdCard,
-//                    customerPhone, customerEmail, customerAddress);
+			customer = new Customer(customerId, name, address,
+					phoneNumber, email, 0);
 			errorsMap = customerService.saveCustomer(customer);
 			if (errorsMap.isEmpty()) {
 				try {
@@ -99,27 +92,14 @@ public class CustomerServlet extends HttpServlet {
 	}
 
 	private void editCustomer(HttpServletRequest request, HttpServletResponse response) {
-//		Integer customerType = Integer.parseInt(request.getParameter("customerType"));
-//		String customerName = request.getParameter("customerName");
-//		String customerBirthDay = request.getParameter("customerBirthDay");
-//		String gender = request.getParameter("customerGender");
-//		Integer customerGender;
-//		String customerIdCard = request.getParameter("customerIdCard");
-//		String customerPhone = request.getParameter("customerPhone");
-//		String customerEmail = request.getParameter("customerEmail");
-//		String customerAddress = request.getParameter("customerAddress");
-		String customerId = request.getParameter("id");
+		String customerId = request.getParameter("customerId");
 		Customer customer = customerService.selectCustomer(customerId);
+		customer.setName( request.getParameter("name"));
+		customer.setAddress( request.getParameter("address"));
+		customer.setEmail( request.getParameter("email"));
+		customer.setPhoneNumber( request.getParameter("phoneNumber"));
 		Map<String, String> map;
 		if (customer != null) {
-//            customer.setCustomerType(customerType);
-//            customer.setCustomerName(customerName);
-//            customer.setCustomerBirthDay(customerBirthDay);
-//            customer.setCustomerGender(customerGender);
-//            customer.setCustomerIdCard(customerIdCard);
-//            customer.setCustomerPhone(customerPhone);
-//            customer.setCustomerEmail(customerEmail);
-//            customer.setCustomerAddress(customerAddress);
 			try {
 				map = customerService.updateCustomer(customer);
 				if (map.isEmpty()) {
@@ -141,12 +121,12 @@ public class CustomerServlet extends HttpServlet {
 	}
 
 	private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) {
-		String customerId = request.getParameter("id");
+		String customerId = request.getParameter("customerId");
 		try {
 			customerService.deleteCustomer(customerId);
 			List<Customer> customerList = customerService.selectAllCustomer();
-			request.setAttribute("customerList", customerList);
-			request.getRequestDispatcher("view/customer.jsp").forward(request, response);
+			request.setAttribute("customers", customerList);
+			request.getRequestDispatcher("views/customer/customer-list.jsp").forward(request, response);
 		} catch (ServletException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -180,9 +160,11 @@ public class CustomerServlet extends HttpServlet {
 	}
 
 	private void showList(HttpServletRequest request, HttpServletResponse response) {
+
 		List<Customer> customerList = customerService.selectAllCustomer();
-		request.setAttribute("customerList", customerList);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("view/customer.jsp");
+		request.setAttribute("customers", customerList);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("views/customer/customer-list.jsp");
 		try {
 			dispatcher.forward(request, response);
 		} catch (ServletException e) {
@@ -212,9 +194,9 @@ public class CustomerServlet extends HttpServlet {
 	}
 
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
-		String customerId = request.getParameter("id");
+		String customerId = request.getParameter("customerId");
 		Customer customer = customerService.selectCustomer(customerId);
-		if (customer == null) {
+		if (customer != null) {
 			request.setAttribute("customer", customer);
 			try {
 				request.getRequestDispatcher("views/customer/edit-customer.jsp").forward(request, response);
